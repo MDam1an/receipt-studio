@@ -1,0 +1,289 @@
+/* ═══════════════════════════════════════
+   RECEIPT-DOC.CSS — Document Design
+   Receipt Studio · Light Elegant
+═══════════════════════════════════════ */
+
+#receipt-preview {
+  background: #fff;
+  color: #111;
+  width: 420px;
+  font-family: 'Geist', system-ui, sans-serif;
+  font-size: 11.5px;
+  line-height: 1.55;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+/* ── DOCUMENT HEADER ── */
+.rd-header {
+  padding: 28px 28px 22px;
+  border-bottom: 1px solid #f0f0ee;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.rd-logo-area {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rd-logo-img {
+  height: 32px;
+  max-width: 90px;
+  object-fit: contain;
+}
+
+.rd-brand-name {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 19px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: #111;
+  line-height: 1;
+}
+
+.rd-brand-contact {
+  font-size: 9.5px;
+  color: #999;
+  line-height: 1.9;
+  margin-top: 2px;
+}
+
+.rd-header-right {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.rd-doc-type {
+  font-size: 8.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #bbb;
+  font-family: 'Geist Mono', monospace;
+}
+
+.rd-doc-num {
+  font-family: 'Geist Mono', monospace;
+  font-size: 15px;
+  font-weight: 500;
+  color: #111;
+  letter-spacing: -0.01em;
+  margin-top: 3px;
+  line-height: 1;
+}
+
+.rd-doc-date {
+  font-size: 9px;
+  color: #aaa;
+  margin-top: 5px;
+  font-family: 'Geist Mono', monospace;
+}
+
+/* ── STATUS BAR ── */
+.rd-status {
+  padding: 7px 28px;
+  font-size: 9px;
+  font-family: 'Geist Mono', monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid #f0f0ee;
+}
+
+.rd-status.paid     { color: #16a34a; background: #f0fdf4; }
+.rd-status.pending  { color: #d97706; background: #fffbeb; }
+.rd-status.partial  { color: #2563eb; background: #eff6ff; }
+.rd-status.cancelled{ color: #dc2626; background: #fef2f2; }
+
+.rd-status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+/* ── BODY ── */
+.rd-body {
+  padding: 20px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ── SECTION ── */
+.rd-section-label {
+  font-size: 7.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #ccc;
+  font-family: 'Geist Mono', monospace;
+  font-weight: 500;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.rd-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.rd-kv { margin-bottom: 4px; display: flex; gap: 6px; }
+
+.rd-k {
+  font-size: 9.5px;
+  color: #aaa;
+  min-width: 72px;
+  flex-shrink: 0;
+  padding-top: 1px;
+}
+
+.rd-v {
+  font-size: 10.5px;
+  color: #222;
+  font-weight: 500;
+  flex: 1;
+}
+
+/* ── DIVIDER ── */
+.rd-divider {
+  height: 1px;
+  background: #f0f0ee;
+}
+
+/* ── ITEMS TABLE ── */
+.rd-items { width: 100%; border-collapse: collapse; }
+
+.rd-items thead tr { border-bottom: 1px solid #eee; }
+
+.rd-items th {
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #bbb;
+  font-family: 'Geist Mono', monospace;
+  font-weight: 500;
+  padding: 0 4px 8px;
+  text-align: left;
+}
+
+.rd-items th:last-child { text-align: right; }
+
+.rd-items td {
+  padding: 7px 4px;
+  font-size: 10.5px;
+  color: #222;
+  border-bottom: 1px solid #f7f7f6;
+  vertical-align: top;
+}
+
+.rd-items td:first-child {
+  color: #bbb;
+  font-family: 'Geist Mono', monospace;
+  font-size: 9.5px;
+  width: 28px;
+}
+
+.rd-items td:nth-child(3),
+.rd-items td:last-child {
+  font-family: 'Geist Mono', monospace;
+  font-size: 9.5px;
+  text-align: right;
+}
+
+.rd-items td:last-child { font-weight: 500; color: #111; }
+
+/* ── TOTALS ── */
+.rd-totals {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.rd-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rd-tl {
+  font-size: 10px;
+  color: #999;
+}
+
+.rd-tv {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  color: #444;
+}
+
+.rd-total-row.discount .rd-tv { color: #16a34a; }
+
+.rd-total-grand {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  padding: 12px 14px;
+  background: #111;
+  border-radius: 7px;
+}
+
+.rd-grand-label {
+  font-size: 8.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  font-family: 'Geist Mono', monospace;
+}
+
+.rd-grand-amount {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 20px;
+  color: #fff;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+/* ── TEXT BLOCKS ── */
+.rd-text-block {
+  font-size: 9.5px;
+  color: #aaa;
+  line-height: 1.7;
+}
+
+/* ── FOOTER ── */
+.rd-footer {
+  padding: 14px 28px 16px;
+  background: #fafaf9;
+  border-top: 1px solid #f0f0ee;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.rd-footer-sig { font-size: 9.5px; color: #aaa; }
+.rd-sig-line   {
+  display: block;
+  width: 80px;
+  height: 1px;
+  background: #e0e0de;
+  margin-bottom: 5px;
+}
+.rd-sig-name   { color: #666; font-weight: 500; font-size: 10px; margin-top: 2px; }
+
+.rd-footer-id {
+  font-family: 'Geist Mono', monospace;
+  font-size: 8px;
+  color: #ccc;
+  text-align: right;
+  line-height: 1.7;
+}

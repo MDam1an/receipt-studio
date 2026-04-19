@@ -1,0 +1,117 @@
+/* ═══════════════════════════════════════
+   BASE.CSS — Design System
+   Receipt Studio · Light Clean
+═══════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@300;400;500&display=swap');
+
+:root {
+  /* ── Palette ── */
+  --white:         #ffffff;
+  --bg:            #f9f9f8;
+  --bg-surface:    #ffffff;
+  --bg-hover:      #f4f4f2;
+  --bg-active:     #f0f0ee;
+
+  --border:        #e8e8e5;
+  --border-mid:    #d8d8d4;
+  --border-strong: #c4c4be;
+
+  --text-primary:  #111110;
+  --text-secondary:#6b6b67;
+  --text-muted:    #a8a8a3;
+  --text-disabled: #d0d0cb;
+
+  --ink:           #111110;
+
+  /* Accent — deep olive / ink green */
+  --accent:        #1a1a18;
+  --accent-light:  rgba(26,26,24,0.06);
+  --accent-mid:    rgba(26,26,24,0.12);
+
+  /* Status colors */
+  --green:         #16a34a;
+  --green-bg:      #f0fdf4;
+  --amber:         #d97706;
+  --amber-bg:      #fffbeb;
+  --blue:          #2563eb;
+  --blue-bg:       #eff6ff;
+  --red:           #dc2626;
+  --red-bg:        #fef2f2;
+
+  /* ── Typography ── */
+  --font-ui:       'Geist', system-ui, sans-serif;
+  --font-serif:    'Instrument Serif', Georgia, serif;
+  --font-mono:     'Geist Mono', 'Courier New', monospace;
+
+  /* ── Spacing (8px grid) ── */
+  --s1:  4px;
+  --s2:  8px;
+  --s3:  12px;
+  --s4:  16px;
+  --s5:  20px;
+  --s6:  24px;
+  --s8:  32px;
+  --s10: 40px;
+  --s12: 48px;
+
+  /* ── Radius ── */
+  --r-xs: 4px;
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 14px;
+  --r-xl: 20px;
+  --r-2xl:28px;
+
+  /* ── Shadows ── */
+  --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.03);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.05);
+  --shadow-lg: 0 16px 40px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.05);
+
+  /* ── Motion ── */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --t-fast: 120ms var(--ease);
+  --t-mid:  220ms var(--ease);
+  --t-slow: 380ms var(--ease);
+
+  /* ── Layout ── */
+  --sidebar-w: 224px;
+  --topbar-h:  58px;
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+
+body {
+  font-family: var(--font-ui);
+  font-weight: 400;
+  background: var(--bg);
+  color: var(--text-primary);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3 { line-height: 1.2; letter-spacing: -0.02em; }
+h1 { font-size: 1.1rem; font-weight: 600; }
+h2 { font-size: 0.9rem; font-weight: 600; }
+h3 { font-size: 0.85rem; font-weight: 600; }
+
+input, select, textarea, button {
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+}
+
+img { max-width: 100%; display: block; }
+a   { color: inherit; text-decoration: none; }
+
+::-webkit-scrollbar       { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-mid); border-radius: 9px; }
+
+::selection { background: var(--accent-mid); }
+
+/* ── Utility ── */
+.hidden { display: none !important; }
