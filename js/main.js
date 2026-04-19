@@ -55,7 +55,14 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function loadAll() {
-  [_brands, _receipts] = await Promise.all([getBrands(), getReceipts()]);
+  try {
+    [_brands, _receipts] = await Promise.all([getBrands(), getReceipts()]);
+  } catch (e) {
+    console.error('Erro ao carregar dados do Firestore:', e);
+    // Continua com arrays vazios — não trava o app
+    _brands = []; _receipts = [];
+    showToast('Aviso: não foi possível carregar os dados. Verifique as regras do Firestore.', 'error');
+  }
   refreshBrandSelects();
 }
 
@@ -74,29 +81,62 @@ function initAuthUI() {
   });
 
   document.getElementById('btn-login').addEventListener('click', async () => {
-    const email = document.getElementById('login-email').value.trim();
-    const pass  = document.getElementById('login-password').value;
-    const errEl = document.getElementById('auth-error');
+    const email  = document.getElementById('login-email').value.trim();
+    const pass   = document.getElementById('login-password').value;
+    const errEl  = document.getElementById('auth-error');
+    const btn    = document.getElementById('btn-login');
+
+    if (!email || !pass) {
+      errEl.textContent = 'Preencha e-mail e senha.';
+      errEl.classList.remove('hidden');
+      return;
+    }
+
+    btn.textContent = 'Entrando...';
+    btn.disabled = true;
+    errEl.classList.add('hidden');
+
     try {
-      errEl.classList.add('hidden');
       await login(email, pass);
     } catch (e) {
       errEl.textContent = authErrorMsg(e.code);
       errEl.classList.remove('hidden');
+    } finally {
+      btn.textContent = 'Entrar';
+      btn.disabled = false;
     }
   });
 
   document.getElementById('btn-register').addEventListener('click', async () => {
-    const name  = document.getElementById('reg-name').value.trim();
-    const email = document.getElementById('reg-email').value.trim();
-    const pass  = document.getElementById('reg-password').value;
-    const errEl = document.getElementById('reg-error');
+    const name   = document.getElementById('reg-name').value.trim();
+    const email  = document.getElementById('reg-email').value.trim();
+    const pass   = document.getElementById('reg-password').value;
+    const errEl  = document.getElementById('reg-error');
+    const btn    = document.getElementById('btn-register');
+
+    if (!email || !pass) {
+      errEl.textContent = 'Preencha e-mail e senha.';
+      errEl.classList.remove('hidden');
+      return;
+    }
+    if (pass.length < 6) {
+      errEl.textContent = 'A senha deve ter pelo menos 6 caracteres.';
+      errEl.classList.remove('hidden');
+      return;
+    }
+
+    btn.textContent = 'Criando conta...';
+    btn.disabled = true;
+    errEl.classList.add('hidden');
+
     try {
-      errEl.classList.add('hidden');
       await register(email, pass);
     } catch (e) {
       errEl.textContent = authErrorMsg(e.code);
       errEl.classList.remove('hidden');
+    } finally {
+      btn.textContent = 'Criar conta';
+      btn.disabled = false;
     }
   });
 
@@ -115,14 +155,18 @@ function initAuthUI() {
 
 function authErrorMsg(code) {
   const map = {
-    'auth/invalid-email':      'E-mail inválido.',
-    'auth/user-not-found':     'Usuário não encontrado.',
-    'auth/wrong-password':     'Senha incorreta.',
-    'auth/email-already-in-use':'E-mail já em uso.',
-    'auth/weak-password':      'Senha muito fraca (mínimo 6 caracteres).',
-    'auth/invalid-credential': 'Credenciais inválidas.',
+    'auth/invalid-email':           'E-mail inválido.',
+    'auth/user-not-found':          'Nenhuma conta com este e-mail.',
+    'auth/wrong-password':          'Senha incorreta.',
+    'auth/email-already-in-use':    'Este e-mail já está cadastrado.',
+    'auth/weak-password':           'Senha fraca — use pelo menos 6 caracteres.',
+    'auth/invalid-credential':      'E-mail ou senha incorretos.',
+    'auth/too-many-requests':       'Muitas tentativas. Aguarde alguns minutos.',
+    'auth/network-request-failed':  'Sem conexão. Verifique sua internet.',
+    'auth/operation-not-allowed':   'Login por e-mail não está ativo no Firebase. Ative em Autenticação → Provedores.',
+    'auth/user-disabled':           'Esta conta foi desativada.',
   };
-  return map[code] || 'Erro ao autenticar. Tente novamente.';
+  return map[code] || `Erro: ${code}`;
 }
 
 // ═══════════════════════════════════════

@@ -76,6 +76,13 @@
   padding: var(--s2) var(--s3);
 }
 
+/* Estado de loading nos botões de auth */
+.auth-form .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
 /* ── APP SHELL ── */
 #screen-app {
   display: flex;

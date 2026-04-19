@@ -12,7 +12,7 @@ import { getAuth, createUserWithEmailAndPassword,
          onAuthStateChanged }               from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
 import { getFirestore, collection, doc,
          getDocs, setDoc, deleteDoc,
-         query, orderBy, where }            from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+         query, where }                     from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
 // ════════════════════════════════════════
 // 🔧 SUBSTITUA COM SUAS CREDENCIAIS:
@@ -63,12 +63,21 @@ function brandsCol()    { return collection(db, 'users', uid(), 'brands'); }
 // ── RECEIPTS ──────────────────────────
 
 export async function getReceipts(brandFilter = '') {
-  let q = query(receiptsCol(), orderBy('createdAt', 'desc'));
-  if (brandFilter) {
-    q = query(receiptsCol(), where('brandName', '==', brandFilter), orderBy('createdAt', 'desc'));
-  }
+  // Sem orderBy para evitar exigência de índice composto no Firestore.
+  // Ordenação feita no cliente após o fetch.
+  let q = brandFilter
+    ? query(receiptsCol(), where('brandName', '==', brandFilter))
+    : query(receiptsCol());
+
   const snap = await getDocs(q);
-  return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  const docs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+  // Ordena por createdAt desc no cliente
+  return docs.sort((a, b) => {
+    const da = a.createdAt || '';
+    const db_ = b.createdAt || '';
+    return da < db_ ? 1 : da > db_ ? -1 : 0;
+  });
 }
 
 export async function upsertReceipt(receipt) {
